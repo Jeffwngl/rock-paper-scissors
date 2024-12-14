@@ -1,6 +1,3 @@
-
-function main() {
-
 function getComputerchoice() {
     let c_choice = Math.floor(Math.random() * 3);
     return c_choice;
@@ -64,6 +61,8 @@ function playRound(humanChoice, ComputerChoice) {
     return outcome;
 }
 
+function main() {
+    
 let humanscore = 0;
 let computerscore = 0;
 
