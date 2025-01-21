@@ -24,7 +24,7 @@ function getComputerchoice() {
 }
 
 function resetGame() {
-    result.textContent = '';
+    result.textContent = 'Press the button to play!';
     computerScore.textContent = '0';
     playerScore.textContent = '0';
 }
