@@ -8,11 +8,25 @@
 </head>
 <body>
 
-<div class="container">
-    <button onclick="main()">Press Me to Play!</button>
+<div class="score">
+    <div class="cpuPoints">
+        <p>Computer:</p>
+        <p id="c_points">0</p>
+    </div>
+    <p class="scoreboard">SCORE</p>
+    <div class="humPoints">
+        <p>You:</p>
+        <p id="h_points">0</p>
+    </div>
 </div>
 
-<p>The results are shown in the console.</p>
+<div class="container">
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+</div>
+
+<p id="result">Press to play!</p>
 
 <script src="script.js"></script>
 

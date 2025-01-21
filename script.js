@@ -1,101 +1,71 @@
+let c_score = 0;
+let h_score = 0;
+
+// get HTML elements
+const cpuPoints = document.querySelector("cpuPoints");
+const humPoints = document.querySelector("humPoints");
+const result = document.getElementById('result');
+const playerScore = document.getElementById("h_points");
+const computerScore = document.getElementById("c_points");
+
+const choices = ['Rock', 'Paper', 'Scissors'];
+
+document.getElementById("rock").addEventListener('click', () => playRound(0));
+document.getElementById("paper").addEventListener('click', () => playRound(1));
+document.getElementById("scissors").addEventListener('click', () => playRound(2));
+
+
 function getComputerchoice() {
     let c_choice = Math.floor(Math.random() * 3);
     return c_choice;
 }
 
-function getHumanchoice() {
-    let h_choice = prompt("Please enter your choice: ");
-
-    h_choice = h_choice.toUpperCase().trim();
-    let x;
-    if (h_choice == "ROCK") {
-        x = 0;
-    } else if (h_choice == "SCISSORS") {
-        x = 1;
-    } else if (h_choice == "PAPER") {
-        x = 2;
-    } else {
-        alert("Please enter a valid input.");
-        x = 3
-    }
-    return x;
+function resetGame() {
+    result.textContent = '';
+    computerScore.textContent = '0';
+    playerScore.textContent = '0';
 }
 
-function playRound(humanChoice, ComputerChoice) {
-    let outcome;
-
-    if (humanChoice == ComputerChoice) {
-        return -1;
-    }
-
-    if (humanChoice == 0) {
-        if (ComputerChoice == 1) {
-            alert("You win! Rock beats Scissors!");
-            outcome = 1;
-        } else {
-            alert("You lose... Paper beats Rock");
-            outcome = 0;
-        }
-    }
-
-    if (humanChoice == 1) {
-        if (ComputerChoice == 2) {
-            alert("You win! Scissors beats Paper!");
-            outcome = 1;
-        } else {
-            alert("You lose... Rock beats Scissors");
-            outcome = 0;
-        }
-    }
-
-    if (humanChoice == 2) {
-        if (ComputerChoice == 0) {
-            alert("You win! Paper beats Rock!");
-            outcome = 1;
-        } else {
-            alert("You lose... Scissors beats Paper");
-            outcome = 0;
-        }
-    }
-
-    return outcome;
+function disableButtons() {
+    document.getElementById('rock').disabled = true;
+    document.getElementById('paper').disabled = true;
+    document.getElementById('scissors').disabled = true;
 }
 
-function main() {
-    
-let humanscore = 0;
-let computerscore = 0;
-
-let counter = 0;
-
-while (counter < 5) {
-    let human = getHumanchoice();
-    let computer = getComputerchoice();
-
-    if (human == 3) {
-        continue;
-    }
-
-    let result = playRound(human, computer);
-    
-    if (result == 1) {
-        humanscore++;
-    } else if (result == 0) {
-        computerscore++;
-    } else {
-        alert("Tie!")
-        continue;
-    }
-
-    console.log(`The new score is... Player: ${humanscore} Computer: ${computerscore}`);
-    if (counter == 4) {
-        if (humanscore > computerscore) {
-            console.log("Player wins!");
-        } else {
-            console.log("Computer wins!");
-        }
-    }
-    counter++;
+function enableButtons() {
+    document.getElementById('rock').disabled = false;
+    document.getElementById('paper').disabled = false;
+    document.getElementById('scissors').disabled = false;
 }
+
+function playRound(h_choice) {
+    let c_choice = getComputerchoice();
+
+    // see who wins
+    if (c_choice == h_choice) {
+        result.textContent = `Tie! Both sides win!`
+    }
+    else if ((h_choice == 0 && c_choice == 2) || (h_choice == 1 && c_choice == 0) || (h_choice == 2 && c_choice == 1)) {
+        h_score++;
+        result.textContent = `You win! ${choices[h_choice]} beats ${choices[c_choice]}.`;
+    }
+    else {
+        c_score++;
+        result.textContent = `You lose! ${choices[c_choice]} beats ${choices[h_choice]}.`;
+    }
+
+    // update scores
+    computerScore.textContent = c_score;
+    playerScore.textContent = h_score;
+
+    // check if game has been won
+    if (c_score == 5) {
+        result.textContent = "You lose! Better luck next time!";
+        disableButtons();
+    }
+    if (h_score == 5) {
+        result.textContent = "You win! lucky!";
+        disableButtons();
+    }
 
 }
