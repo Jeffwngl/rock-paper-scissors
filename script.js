@@ -14,6 +14,9 @@ document.getElementById("rock").addEventListener('click', () => playRound(0));
 document.getElementById("paper").addEventListener('click', () => playRound(1));
 document.getElementById("scissors").addEventListener('click', () => playRound(2));
 
+function playConfetti() {
+    confetti();
+}
 
 function getComputerchoice() {
     let c_choice = Math.floor(Math.random() * 3);
@@ -41,6 +44,12 @@ function enableButtons() {
 function playRound(h_choice) {
     let c_choice = getComputerchoice();
 
+    result.classList.add("fadeIn");
+
+    setTimeout(function () {
+        result.classList.remove("fadeIn");
+    }, 2000);
+
     // see who wins
     if (c_choice == h_choice) {
         result.textContent = `Tie! Both sides win!`
@@ -65,6 +74,7 @@ function playRound(h_choice) {
     }
     if (h_score == 5) {
         result.textContent = "You win! lucky!";
+        playConfetti();
         disableButtons();
     }
 

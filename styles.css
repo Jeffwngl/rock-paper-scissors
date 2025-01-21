@@ -111,4 +111,11 @@ p {
 
 #result {
     text-align: center;
+    opacity: 0;
+    transition: 1s;
+}
+
+#result.fadeIn {
+    opacity: 1;
+    transition: 1s;
 }
